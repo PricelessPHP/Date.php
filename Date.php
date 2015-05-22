@@ -41,4 +41,71 @@ class Date
         $year = ( strlen( $year ) ) ? (int)$year : date( $year ); 
         return strtotime( 'first day of January '.$year );    
     }
+    
+    /**
+     * Get the timestamp of the 
+     * start of the week
+     * 
+     * @link    http://derickrethans.nl/calculating-start-and-end-dates-of-a-week.html 
+     * @param   int $date
+     * @return  int
+    */
+    public function getStartOfWeek( $date )
+    {
+        $date = (int)$date;
+        if( $date == 0 ) {
+            $date = time();
+        }
+        
+        $year = date( 'Y', $date );
+        $week = date( 'W', $date );
+        
+        return strtotime( date( datetime::ISO8601, strtotime( $year.'W'.$week ) ) );    
+    }
+    
+    /**
+     * Get the timestamp of the
+     * end of the week
+     *
+     * @link    http://derickrethans.nl/calculating-start-and-end-dates-of-a-week.html
+     * @param   int $date
+     * @return  int
+    */
+    public function getEndOfWeek( $date )
+    {
+        $date = (int)$date;
+        if( $date == 0 ) {
+            $date = time();
+        }
+        
+        $year = date( 'Y', $date );
+        $week = date( 'W', $date );
+            
+        return strtotime( date( datetime::ISO8601, strtotime( $year.'W'.$week.'7' ) ) );
+    } 
+    
+    public function getStartOfDay( $timestamp = null )
+    {
+        $timestamp = ( is_null( $timestamp ) ) ? time() : $timestamp;
+        return strtotime( 'midnight', $timestamp );    
+    }
+    
+    public function getEndOfDay( $timestamp = null )
+    {
+        $timestamp  = ( is_null( $timestamp ) ) ? time() : $timestamp;
+        $beginOfDay = strtotime( 'midnight', $timestamp );
+        $endOfDay   = strtotime( 'tomorrow', $beginOfDay ) - 1;
+    
+        return $endOfDay;
+    }
+    
+    public function getStartOfMonth( $format = 'Y-m-01' )
+    {
+        return date( $format );
+    }
+    
+    function getLastDayOfMonth( $format = 'Y-m-t' )
+    {
+        return date( $format );
+    }    
 }
