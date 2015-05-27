@@ -101,11 +101,11 @@ class Date
     
     public function getStartOfMonth( $format = 'Y-m-01' )
     {
-        return date( $format );
+        return strtotime( date( $format ) );
     }
     
     function getLastDayOfMonth( $format = 'Y-m-t' )
     {
-        return date( $format );
+        return strtotime( date( $format ) );
     }    
 }
