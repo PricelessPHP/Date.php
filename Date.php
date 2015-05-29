@@ -50,7 +50,7 @@ class Date
      * @param   int $date
      * @return  int
     */
-    public function getStartOfWeek( $date )
+    public function getStartOfWeek( $date = null )
     {
         $date = (int)$date;
         if( $date == 0 ) {
@@ -71,7 +71,7 @@ class Date
      * @param   int $date
      * @return  int
     */
-    public function getEndOfWeek( $date )
+    public function getEndOfWeek( $date = null )
     {
         $date = (int)$date;
         if( $date == 0 ) {
