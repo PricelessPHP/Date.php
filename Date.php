@@ -104,8 +104,30 @@ class Date
         return strtotime( date( $format ) );
     }
     
-    function getLastDayOfMonth( $format = 'Y-m-t' )
+    public function getLastDayOfMonth( $format = 'Y-m-t' )
     {
         return strtotime( date( $format ) );
+    } 
+    
+    /**
+     * Get the start timestamp of two 
+     * weeks ago
+     *
+     * @return  int
+    */
+    public function twoWeeksAgoStart()
+    {
+        return strtotime( '-2 weeks ago Monday' );
+    }
+    
+    /**
+     * Get the end timestamp of two
+     * weeks ago
+     *
+     * @return  int
+    */
+    public function twoWeeksAgoEnd()
+    {
+        return strtotime( 'Monday this week' );
     }    
 }
