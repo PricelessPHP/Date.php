@@ -117,7 +117,7 @@ class Date
     */
     public function twoWeeksAgoStart()
     {
-        return strtotime( '-2 weeks ago Monday' );
+        return strtotime( '2 weeks ago Monday' );
     }
     
     /**
