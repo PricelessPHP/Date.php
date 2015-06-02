@@ -129,5 +129,18 @@ class Date
     public function twoWeeksAgoEnd()
     {
         return strtotime( 'Monday this week' );
+    }  
+    
+    /**
+     * Get the timestamp by year & week
+     * 
+     * @link    http://derickrethans.nl/calculating-start-and-end-dates-of-a-week.html
+     * @param   int $year
+     * @param   int $week
+     * @return  int
+    */
+    public function getTimestampByYearAndWeek( $year, $week )
+    {
+        return strtotime( date( datetime::ISO8601, strtotime( $year.'W'.$week ) ) );    
     }    
 }
