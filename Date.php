@@ -21,7 +21,6 @@ class Date
     /**
      * Get the start of yesterday
      *
-     * @link    http://stackoverflow.com/a/16009169
      * @return  int
     */
     public function yesterday()
