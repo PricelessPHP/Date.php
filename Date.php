@@ -26,7 +26,7 @@ class Date
     */
     public function yesterday()
     {
-        return strtotime( '-1 days');    
+        return strtotime( 'yesterday' );    
     }
     
     /**
