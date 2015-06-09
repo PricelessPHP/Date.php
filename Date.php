@@ -142,5 +142,25 @@ class Date
     public function getTimestampByYearAndWeek( $year, $week )
     {
         return strtotime( date( datetime::ISO8601, strtotime( $year.'W'.$week ) ) );    
-    }    
+    } 
+    
+    /**
+     * str_replace for dates
+     *
+     * @param   string  $search
+     * @param   string  $replace
+     * @param   string  $date
+     * @return  string
+    */
+    public function str_replace_date( $search, $replace, $date )
+    {
+        $words = str_word_count( $date, 1 );
+        if( !empty( $words ) ) {
+            foreach( $words AS $key => $value ) {
+                $date = str_replace( $search, $replace, $date );
+            }
+        }
+    
+        return $date;
+    }  
 }
