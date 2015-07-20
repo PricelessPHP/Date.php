@@ -163,54 +163,63 @@ class Date
         return $date;
     }
     
-    /**
-     * Get the days between two 
-     * timestamps
-     *
-     * @param   int     $dateStart
-     * @param   int     $dateEnd
-     * @param   string  $format
-     * @return  array
-    */
-    public function getDaysBetween( $dateStart, $dateEnd, $format = null )
-    {
-        $daySecs    = 86400;
-        $dateStart  = (int)$dateStart;
-        $dateEnd    = (int)$dateEnd;
-        $dates      = array();
-        $x          = $dateStart;
-        $i          = 0;
+/**
+ * Get the days between two 
+ * timestamps
+ *
+ * @param   int     $dateStart
+ * @param   int     $dateEnd
+ * @param   string  $format
+ * @param   boolean $includeWeekends
+ * @return  array
+*/
+function getDaysBetween( $dateStart, $dateEnd, $format = null, $includeWeekends = false )
+{
+    $daySecs    = 86400;
+    $dateStart  = (int)$dateStart;
+    $dateEnd    = (int)$dateEnd;
+    $dates      = array();
+    $x          = $dateStart;
+    $i          = 0;
+    $weekend    = array('Saturday', 'Sunday');
+    
+    if( ( $dateEnd == 0 ) OR ( $dateEnd == $dateStart ) ) {
+        return $dates;
+    } elseif ( ( $dateEnd - $dateStart ) == $daySecs ) {
+        if( !is_null( $format ) ) {
+            return array(
+                date( $format, $dateStart )
+            );
+        } else {
+            return array(
+                $dateStart
+            );            
+        }
+    }
+    
+    $dateDiff = ( $dateEnd - $dateStart );
+    $dateDiff = floor( $dateDiff / $daySecs );
+
+    if( !is_null( $format ) ) {
+        $dates[] = date( $format, $dateStart );
+    } else {
+        $dates[] = $dateStart;
+    }
+    
+    while( $i < $dateDiff ) {
+        $i++;
         
-        if( ( $dateEnd == 0 ) OR ( $dateEnd == $dateStart ) ) {
-            return $dates;
-        } elseif ( ( $dateEnd - $dateStart ) == $daySecs ) {
-            if( !is_null( $format ) ) {
-                return array(
-                    date( $format, $dateStart )
-                );
-            } else {
-                return array(
-                    $dateStart
-                );            
+        $x = ( $x + $daySecs );
+        
+        if( !$includeWeekends ) {
+            if( in_array( date('l', $x ), $weekend ) ) {
+                continue;
             }
         }
         
-        $dateDiff = ( $dateEnd - $dateStart );
-        $dateDiff = floor( $dateDiff / $daySecs );
+        $dates[] = ( is_null( $format ) ) ? $x : date( $format, $x );
+    }
     
-        if( !is_null( $format ) ) {
-            $dates[] = date( $format, $dateStart );
-        } else {
-            $dates[] = $dateStart;
-        }
-        
-        while( $i < $dateDiff ) {
-            $i++;
-            
-            $x          = ( $x + $daySecs );
-            $dates[]    = ( is_null( $format ) ) ? $x : date( $format, $x );
-        }
-        
-        return $dates;
-    }    
+    return $dates;
+}   
 }
