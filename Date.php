@@ -231,7 +231,7 @@ class Date
      * @param   string  $format
      * @return  string
     */
-    public function german_date( $date, $format = 'd.m.Y' )
+    public function german_date( $date, $format = '%e.%m.%Y' )
     {
         // get the current locale
         $originalLocale = setlocale( LC_TIME, '0' );
@@ -240,7 +240,7 @@ class Date
         setlocale( LC_TIME, 'de_DE' );
     
         // format
-        $formattedDate = date( $format, $number );
+        $formattedDate = strftime( $format, $date );
     
         // reset the locale
         setlocale( LC_TIME, $originalLocale );
@@ -257,7 +257,7 @@ class Date
      * @param   string  $format
      * @return  string
     */
-    public function localized_date( $date, $locale, $format = 'm.d.Y' )
+    public function localized_date( $date, $locale, $format = '%m &d %Y' )
     {
         // get the current locale
         $originalLocale = setlocale( LC_TIME, '0' );
@@ -266,11 +266,11 @@ class Date
         setlocale( LC_TIME, $locale );
     
         // format
-        $formattedDate = date( $format, $number );
+        $formattedDate = strftime( $format, $date );
     
         // reset the locale
         setlocale( LC_TIME, $originalLocale );
     
         return $formattedDate;   
-    }     
+    }    
 }
