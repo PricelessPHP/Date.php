@@ -163,63 +163,88 @@ class Date
         return $date;
     }
     
-/**
- * Get the days between two 
- * timestamps
- *
- * @param   int     $dateStart
- * @param   int     $dateEnd
- * @param   string  $format
- * @param   boolean $includeWeekends
- * @return  array
-*/
-function getDaysBetween( $dateStart, $dateEnd, $format = null, $includeWeekends = false )
-{
-    $daySecs    = 86400;
-    $dateStart  = (int)$dateStart;
-    $dateEnd    = (int)$dateEnd;
-    $dates      = array();
-    $x          = $dateStart;
-    $i          = 0;
-    $weekend    = array('Saturday', 'Sunday');
-    
-    if( ( $dateEnd == 0 ) OR ( $dateEnd == $dateStart ) ) {
-        return $dates;
-    } elseif ( ( $dateEnd - $dateStart ) == $daySecs ) {
-        if( !is_null( $format ) ) {
-            return array(
-                date( $format, $dateStart )
-            );
-        } else {
-            return array(
-                $dateStart
-            );            
-        }
-    }
-    
-    $dateDiff = ( $dateEnd - $dateStart );
-    $dateDiff = floor( $dateDiff / $daySecs );
-
-    if( !is_null( $format ) ) {
-        $dates[] = date( $format, $dateStart );
-    } else {
-        $dates[] = $dateStart;
-    }
-    
-    while( $i < $dateDiff ) {
-        $i++;
+    /**
+     * Get the days between two 
+     * timestamps
+     *
+     * @param   int     $dateStart
+     * @param   int     $dateEnd
+     * @param   string  $format
+     * @param   boolean $includeWeekends
+     * @return  array
+    */
+    function getDaysBetween( $dateStart, $dateEnd, $format = null, $includeWeekends = false )
+    {
+        $daySecs    = 86400;
+        $dateStart  = (int)$dateStart;
+        $dateEnd    = (int)$dateEnd;
+        $dates      = array();
+        $x          = $dateStart;
+        $i          = 0;
+        $weekend    = array('Saturday', 'Sunday');
         
-        $x = ( $x + $daySecs );
-        
-        if( !$includeWeekends ) {
-            if( in_array( date('l', $x ), $weekend ) ) {
-                continue;
+        if( ( $dateEnd == 0 ) OR ( $dateEnd == $dateStart ) ) {
+            return $dates;
+        } elseif ( ( $dateEnd - $dateStart ) == $daySecs ) {
+            if( !is_null( $format ) ) {
+                return array(
+                    date( $format, $dateStart )
+                );
+            } else {
+                return array(
+                    $dateStart
+                );            
             }
         }
         
-        $dates[] = ( is_null( $format ) ) ? $x : date( $format, $x );
-    }
+        $dateDiff = ( $dateEnd - $dateStart );
+        $dateDiff = floor( $dateDiff / $daySecs );
     
-    return $dates;
-}   
+        if( !is_null( $format ) ) {
+            $dates[] = date( $format, $dateStart );
+        } else {
+            $dates[] = $dateStart;
+        }
+        
+        while( $i < $dateDiff ) {
+            $i++;
+            
+            $x = ( $x + $daySecs );
+            
+            if( !$includeWeekends ) {
+                if( in_array( date('l', $x ), $weekend ) ) {
+                    continue;
+                }
+            }
+            
+            $dates[] = ( is_null( $format ) ) ? $x : date( $format, $x );
+        }
+        
+        return $dates;
+    } 
+    
+    /**
+     * Return a date formatted in
+     * the German locale
+     *
+     * @param   int     $date
+     * @param   string  $format
+     * @return  string
+    */
+    public function german_date( $date, $format = 'd.m.Y' )
+    {
+        // get the current locale
+        $originalLocale = setlocale( LC_TIME, '0' );
+    
+        // change the locale to German
+        setlocale( LC_TIME, 'de_DE' );
+    
+        // format
+        $formattedDate = date( $format, $number );
+    
+        // reset the locale
+        setlocale( LC_TIME, $originalLocale );
+    
+        return $formattedDate;   
+    }
 }
