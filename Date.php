@@ -237,7 +237,7 @@ class Date
         $originalLocale = setlocale( LC_TIME, '0' );
     
         // change the locale to German
-        setlocale( LC_TIME, 'de_DE' );
+        setlocale( LC_TIME, 'de_DE.utf8' );
     
         // format
         $formattedDate = strftime( $format, $date );
