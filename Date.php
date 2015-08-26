@@ -23,7 +23,7 @@ class Date
      *
      * @return  int
     */
-    public function yesterday()
+    public static function yesterday()
     {
         return strtotime( 'yesterday' );    
     }
@@ -35,7 +35,7 @@ class Date
      * @param   int $year
      * @return  int
     */
-    public function getStartOfYear( $year = null )
+    public static function getStartOfYear( $year = null )
     {
         $year = ( strlen( $year ) ) ? (int)$year : date( $year ); 
         return strtotime( 'first day of January '.$year );    
@@ -49,7 +49,7 @@ class Date
      * @param   int $date
      * @return  int
     */
-    public function getStartOfWeek( $date = null )
+    public static function getStartOfWeek( $date = null )
     {
         $date = (int)$date;
         if( $date == 0 ) {
@@ -70,7 +70,7 @@ class Date
      * @param   int $date
      * @return  int
     */
-    public function getEndOfWeek( $date = null )
+    public static function getEndOfWeek( $date = null )
     {
         $date = (int)$date;
         if( $date == 0 ) {
@@ -83,13 +83,13 @@ class Date
         return strtotime( date( datetime::ISO8601, strtotime( $year.'W'.$week.'7' ) ) );
     } 
     
-    public function getStartOfDay( $timestamp = null )
+    public static function getStartOfDay( $timestamp = null )
     {
         $timestamp = ( is_null( $timestamp ) ) ? time() : $timestamp;
         return strtotime( 'midnight', $timestamp );    
     }
     
-    public function getEndOfDay( $timestamp = null )
+    public static function getEndOfDay( $timestamp = null )
     {
         $timestamp  = ( is_null( $timestamp ) ) ? time() : $timestamp;
         $beginOfDay = strtotime( 'midnight', $timestamp );
@@ -98,12 +98,12 @@ class Date
         return $endOfDay;
     }
     
-    public function getStartOfMonth( $format = 'Y-m-01' )
+    public static function getStartOfMonth( $format = 'Y-m-01' )
     {
         return strtotime( date( $format ) );
     }
     
-    public function getLastDayOfMonth( $format = 'Y-m-t' )
+    public static function getLastDayOfMonth( $format = 'Y-m-t' )
     {
         return strtotime( date( $format ) );
     } 
@@ -114,7 +114,7 @@ class Date
      *
      * @return  int
     */
-    public function twoWeeksAgoStart()
+    public static function twoWeeksAgoStart()
     {
         return strtotime( '2 weeks ago Monday' );
     }
@@ -125,7 +125,7 @@ class Date
      *
      * @return  int
     */
-    public function twoWeeksAgoEnd()
+    public static function twoWeeksAgoEnd()
     {
         return strtotime( 'Monday this week' );
     }  
@@ -138,7 +138,7 @@ class Date
      * @param   int $week
      * @return  int
     */
-    public function getTimestampByYearAndWeek( $year, $week )
+    public static function getTimestampByYearAndWeek( $year, $week )
     {
         return strtotime( date( datetime::ISO8601, strtotime( $year.'W'.$week ) ) );    
     } 
@@ -151,7 +151,7 @@ class Date
      * @param   string  $date
      * @return  string
     */
-    public function str_replace_date( $search, $replace, $date )
+    public static function str_replace_date( $search, $replace, $date )
     {
         $words = str_word_count( $date, 1 );
         if( !empty( $words ) ) {
@@ -231,7 +231,7 @@ class Date
      * @param   string  $format
      * @return  string
     */
-    public function german_date( $date, $format = '%e.%m.%Y' )
+    public static function german_date( $date, $format = '%e.%m.%Y' )
     {
         // get the current locale
         $originalLocale = setlocale( LC_TIME, '0' );
@@ -257,7 +257,7 @@ class Date
      * @param   string  $format
      * @return  string
     */
-    public function localized_date( $date, $locale, $format = '%m &d %Y' )
+    public static function localized_date( $date, $locale, $format = '%m &d %Y' )
     {
         // get the current locale
         $originalLocale = setlocale( LC_TIME, '0' );
