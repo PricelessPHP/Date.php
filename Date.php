@@ -231,7 +231,7 @@ class Date
      * @param   string  $format
      * @return  string
     */
-    public static function german_date( $date, $format = '%e.%m.%Y' )
+    public static function german_date( $date, $format = '%d.%m.%Y' )
     {
         // get the current locale
         $originalLocale = setlocale( LC_TIME, '0' );
